@@ -23,28 +23,35 @@ class Result {
      */
 
     public static int twoStacks(int maxSum, List<Integer> a, List<Integer> b) {
+        int n = a.size();
+        int m = b.size();
+
         long sum = 0;
         int i = 0;
-        while(i < a.size() && sum + a.get(i) <= maxSum){
+
+        while (i < n && sum + a.get(i) <= maxSum) {
             sum += a.get(i);
             i++;
         }
-        int best = 0;
+
+        int best = i;
+
         int j = 0;
-        while(j < b.size()){
+        while (j < m) {
             sum += b.get(j);
             j++;
-            while(sum > maxSum && i > 0){
+
+            while (sum > maxSum && i > 0) {
                 i--;
                 sum -= a.get(i);
             }
-            if(i+j > best){
-                best = i + j;
-            }
+
+            if (sum > maxSum) break;
+
+            best = Math.max(best, i + j);
         }
+
         return best;
-
-
     }
 
 }
